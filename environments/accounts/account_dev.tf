@@ -5,6 +5,11 @@ resource "aws_organizations_account" "dev" {
   parent_id = data.terraform_remote_state.management.outputs.organizational_units["Workloads"]
 }
 
+resource "time_sleep" "wait_60_seconds_dev" {
+  depends_on = [aws_organizations_account.dev]
+  create_duration = "60s"
+}
+
 provider "aws" {
   alias  = "dev"
   region = "us-east-1"
@@ -15,6 +20,7 @@ provider "aws" {
 
 module "baseline_dev" {
   source = "../../modules/account-baseline"
+  depends_on = [time_sleep.wait_60_seconds_dev]
   providers = {
     aws = aws.dev
   }
