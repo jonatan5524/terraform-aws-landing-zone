@@ -37,3 +37,18 @@ resource "aws_s3_bucket_public_access_block" "state" {
   ignore_public_acls      = true
   restrict_public_buckets = true
 }
+
+locals {
+  organizational_units = [
+    "Security",
+    "Infrastructure",
+    "Workloads",
+    "Sandbox"
+  ]
+}
+
+resource "aws_organizations_organizational_unit" "ou" {
+  for_each  = toset(local.organizational_units)
+  name      = each.key
+  parent_id = aws_organizations_organization.this.roots[0].id
+}
