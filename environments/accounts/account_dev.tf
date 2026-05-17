@@ -25,3 +25,11 @@ module "baseline_dev" {
     aws = aws.dev
   }
 }
+
+module "sso_assignment_dev" {
+  source              = "../../modules/sso-assignment"
+  sso_instance_arn    = data.terraform_remote_state.management.outputs.sso_instance_arn
+  account_id          = aws_organizations_account.dev.id
+  group_id            = data.aws_identitystore_group.developers.id
+  permission_set_arns = [data.terraform_remote_state.management.outputs.sso_permission_set_arns["PowerUserAccess"]]
+}
