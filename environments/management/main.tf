@@ -52,3 +52,7 @@ resource "aws_organizations_organizational_unit" "ou" {
   name      = each.key
   parent_id = aws_organizations_organization.this.roots[0].id
 }
+
+module "sso_permission_sets" {
+  source = "../../modules/sso-permission-sets"
+}
