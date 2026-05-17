@@ -6,7 +6,7 @@ resource "aws_organizations_account" "shared_services" {
 }
 
 resource "time_sleep" "wait_60_seconds_shared_services" {
-  depends_on = [aws_organizations_account.shared_services]
+  depends_on      = [aws_organizations_account.shared_services]
   create_duration = "60s"
 }
 
@@ -19,7 +19,7 @@ provider "aws" {
 }
 
 module "baseline_shared_services" {
-  source = "../../modules/account-baseline"
+  source     = "../../modules/account-baseline"
   depends_on = [time_sleep.wait_60_seconds_shared_services]
   providers = {
     aws = aws.shared_services

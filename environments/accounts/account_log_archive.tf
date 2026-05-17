@@ -6,7 +6,7 @@ resource "aws_organizations_account" "log_archive" {
 }
 
 resource "time_sleep" "wait_60_seconds_log_archive" {
-  depends_on = [aws_organizations_account.log_archive]
+  depends_on      = [aws_organizations_account.log_archive]
   create_duration = "60s"
 }
 
@@ -19,7 +19,7 @@ provider "aws" {
 }
 
 module "baseline_log_archive" {
-  source = "../../modules/account-baseline"
+  source     = "../../modules/account-baseline"
   depends_on = [time_sleep.wait_60_seconds_log_archive]
   providers = {
     aws = aws.log_archive

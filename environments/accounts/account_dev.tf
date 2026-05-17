@@ -6,7 +6,7 @@ resource "aws_organizations_account" "dev" {
 }
 
 resource "time_sleep" "wait_60_seconds_dev" {
-  depends_on = [aws_organizations_account.dev]
+  depends_on      = [aws_organizations_account.dev]
   create_duration = "60s"
 }
 
@@ -19,7 +19,7 @@ provider "aws" {
 }
 
 module "baseline_dev" {
-  source = "../../modules/account-baseline"
+  source     = "../../modules/account-baseline"
   depends_on = [time_sleep.wait_60_seconds_dev]
   providers = {
     aws = aws.dev
