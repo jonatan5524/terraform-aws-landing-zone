@@ -1,5 +1,8 @@
 # environments/management/main.tf
 resource "aws_organizations_organization" "this" {
+  aws_service_access_principals = [
+    "sso.amazonaws.com"
+  ]
   feature_set = "ALL"
 }
 
