@@ -19,4 +19,4 @@ The objective of this project is to build an enterprise-grade, multi-account AWS
 * **Compute & Workload:** Instead of incurring the $73/month control plane fee for Amazon EKS, the development environment runs K3s, a highly optimized and lightweight Kubernetes distribution designed to run on resource-constrained machines.
 * **Continuous Deployment:** ArgoCD is deployed inside the K3s cluster to enforce GitOps workflows, automatically synchronizing a 3-tier microservices guestbook application directly from the Git repository to the cluster.
 
-**don't terraform apply yourself**
+**don't terraform apply yourself - just tell me in the end what to apply myself**
