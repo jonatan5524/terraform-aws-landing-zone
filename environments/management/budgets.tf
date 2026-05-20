@@ -22,9 +22,9 @@ resource "aws_budgets_budget" "free_tier_compute" {
   time_unit    = "MONTHLY"
 
   cost_filter {
-    name = "Service"
+    name = "UsageTypeGroup"
     values = [
-      "Amazon Elastic Compute Cloud - Compute",
+      "EC2: Running Hours",
     ]
   }
 
