@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "skills": {
+    "aws-agentic-ai": {
+      "source": "zxkane/aws-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/aws-agentic-ai/skills/aws-agentic-ai/SKILL.md",
+      "computedHash": "676db19b502609c08aac0685f5429b49b329311abbc8627f3c0aa738920c363f"
+    },
+    "aws-cost-operations": {
+      "source": "zxkane/aws-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/aws-cost-ops/skills/aws-cost-operations/SKILL.md",
+      "computedHash": "c3b1e4e88c8007d0795743376137b1b85489144774eca68cafa340b360227445"
+    },
+    "aws-mcp-setup": {
+      "source": "zxkane/aws-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/aws-common/skills/aws-mcp-setup/SKILL.md",
+      "computedHash": "cdf23df0439e432514e6b8122227356a8ce3b3ac5296f64bad6e6ffd2c34e7fa"
+    },
+    "terraform-skill": {
+      "source": "antonbabenko/terraform-skill",
+      "sourceType": "github",
+      "skillPath": "skills/terraform-skill/SKILL.md",
+      "computedHash": "2fbcf60b149bd4ed5a31c82b799b15fe955138238a3f68ec697605d994cb9234"
+    }
+  }
+}

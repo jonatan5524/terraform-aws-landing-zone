@@ -19,4 +19,19 @@ The objective of this project is to build an enterprise-grade, multi-account AWS
 * **Compute & Workload:** Instead of incurring the $73/month control plane fee for Amazon EKS, the development environment runs K3s, a highly optimized and lightweight Kubernetes distribution designed to run on resource-constrained machines.
 * **Continuous Deployment:** ArgoCD is deployed inside the K3s cluster to enforce GitOps workflows, automatically synchronizing a 3-tier microservices guestbook application directly from the Git repository to the cluster.
 
-**don't terraform apply yourself - just tell me in the end what to apply myself**
+**don't terraform apply yourself - just tell me in the end what to apply myself**  
+**don't git commends yourself**
+
+## Agent skills
+
+### Issue tracker
+
+Issues live in GitHub Issues for this repo (no external PR triage). See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Default canonical labels (`needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`). See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context layout — `CONTEXT.md` + `docs/adr/` at the repo root. See `docs/agents/domain.md`.

@@ -30,3 +30,6 @@ override.tf.json
 terraform.rc
 
 docs/superpowers/*
+
+# Local MCP config — contains personal AWS profile names
+.mcp.json
