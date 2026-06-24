@@ -23,3 +23,13 @@ output "sso_instance_arn" {
   description = "The ARN of the SSO Instance"
   value       = module.sso_permission_sets.sso_instance_arn
 }
+
+output "sso_group_ids" {
+  description = "Map of SSO group display names to their Identity Store group IDs"
+  value       = module.sso_permission_sets.group_ids
+}
+
+output "management_account_id" {
+  description = "The AWS account ID of the management account"
+  value       = data.aws_caller_identity.current.account_id
+}
