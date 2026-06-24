@@ -1,0 +1,3 @@
+# NodePort + SSM port-forwarding instead of Traefik Ingress for cluster services
+
+K3s ships with Traefik as its built-in ingress controller, but we access the ArgoCD UI and application frontends via NodePort Services and AWS SSM port-forwarding rather than Traefik Ingress resources. On a single-node private cluster accessed exclusively by operators via SSM, Traefik Ingress adds complexity (Host-header routing, Ingress manifests, TLS passthrough or termination decisions) with no operational benefit — SSM port-forwarding already provides an encrypted tunnel directly to any NodePort. Traefik Ingress should be adopted when the cluster needs to serve traffic to multiple external consumers simultaneously.
