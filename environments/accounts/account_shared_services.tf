@@ -19,8 +19,10 @@ provider "aws" {
 }
 
 module "baseline_shared_services" {
-  source     = "../../modules/account-baseline"
-  depends_on = [time_sleep.wait_60_seconds_shared_services]
+  source                = "../../modules/account-baseline"
+  depends_on            = [time_sleep.wait_60_seconds_shared_services]
+  management_account_id = data.aws_caller_identity.current.account_id
+  state_bucket_name     = "pomeloinfra-tf-state-shared-services"
   providers = {
     aws = aws.shared_services
   }

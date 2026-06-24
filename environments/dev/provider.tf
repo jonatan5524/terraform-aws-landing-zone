@@ -15,13 +15,13 @@ provider "aws" {
   region = var.aws_region
 
   assume_role {
-    role_arn = "arn:aws:iam::${var.dev_account_id}:role/OrganizationAccountAccessRole"
+    role_arn = "arn:aws:iam::${var.dev_account_id}:role/TerraformExecutionRole"
   }
 
   default_tags {
     tags = {
-      Project   = "aws-landing-zone"
-      ManagedBy = "terraform"
+      Project    = "aws-landing-zone"
+      ManagedBy  = "terraform"
       CostCenter = "free-tier"
     }
   }
