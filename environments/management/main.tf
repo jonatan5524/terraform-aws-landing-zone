@@ -1,4 +1,6 @@
 # environments/management/main.tf
+data "aws_caller_identity" "current" {}
+
 resource "aws_organizations_organization" "this" {
   aws_service_access_principals = [
     "sso.amazonaws.com"

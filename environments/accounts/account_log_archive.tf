@@ -19,17 +19,19 @@ provider "aws" {
 }
 
 module "baseline_log_archive" {
-  source     = "../../modules/account-baseline"
-  depends_on = [time_sleep.wait_60_seconds_log_archive]
+  source                = "../../modules/account-baseline"
+  depends_on            = [time_sleep.wait_60_seconds_log_archive]
+  management_account_id = data.aws_caller_identity.current.account_id
+  state_bucket_name     = "pomeloinfra-tf-state-log-archive"
   providers = {
     aws = aws.log_archive
   }
 }
 
-module "sso_assignment_log_archive" {
+module "sso_assignment_log_archive_security_audit" {
   source              = "../../modules/sso-assignment"
   sso_instance_arn    = data.terraform_remote_state.management.outputs.sso_instance_arn
   account_id          = aws_organizations_account.log_archive.id
-  group_id            = data.aws_identitystore_group.developers.id
+  group_id            = data.terraform_remote_state.management.outputs.sso_group_ids["security-audit"]
   permission_set_arns = [data.terraform_remote_state.management.outputs.sso_permission_set_arns["SecurityAudit"]]
 }

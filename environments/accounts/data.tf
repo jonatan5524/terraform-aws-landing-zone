@@ -1,4 +1,6 @@
 # environments/accounts/data.tf
+data "aws_caller_identity" "current" {}
+
 data "terraform_remote_state" "management" {
   backend = "s3"
   config = {
@@ -9,14 +11,3 @@ data "terraform_remote_state" "management" {
 }
 
 data "aws_ssoadmin_instances" "this" {}
-
-data "aws_identitystore_group" "developers" {
-  identity_store_id = tolist(data.aws_ssoadmin_instances.this.identity_store_ids)[0]
-
-  alternate_identifier {
-    unique_attribute {
-      attribute_path  = "DisplayName"
-      attribute_value = "developers"
-    }
-  }
-}
