@@ -135,8 +135,6 @@ resource "aws_iam_role_policy" "terraform_execution_iam" {
           "iam:DeleteInstanceProfile",
           "iam:AddRoleToInstanceProfile",
           "iam:RemoveRoleFromInstanceProfile",
-          "iam:TagRole",
-          "iam:UntagRole",
           "iam:PutRolePermissionsBoundary",
         ]
         Resource = "*"
@@ -145,6 +143,20 @@ resource "aws_iam_role_policy" "terraform_execution_iam" {
             "iam:PermissionsBoundary" = aws_iam_policy.ec2_instance_boundary.arn
           }
         }
+      },
+      {
+        Sid    = "IAMTagEC2InstanceRoles"
+        Effect = "Allow"
+        Action = [
+          "iam:TagRole",
+          "iam:UntagRole",
+          "iam:TagInstanceProfile",
+          "iam:UntagInstanceProfile",
+        ]
+        Resource = [
+          "arn:aws:iam::*:role/*-ssm-role",
+          "arn:aws:iam::*:instance-profile/*-ssm-profile",
+        ]
       },
       {
         Sid      = "IAMReadOnly"

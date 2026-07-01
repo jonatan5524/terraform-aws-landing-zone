@@ -33,7 +33,9 @@ module "sso_assignment_dev_platform_engineers" {
   sso_instance_arn    = data.terraform_remote_state.management.outputs.sso_instance_arn
   account_id          = aws_organizations_account.dev.id
   group_id            = data.terraform_remote_state.management.outputs.sso_group_ids["platform-engineers"]
-  permission_set_arns = [data.terraform_remote_state.management.outputs.sso_permission_set_arns["PlatformEngineerAccess"]]
+  permission_set_arns = {
+    PlatformEngineerAccess = data.terraform_remote_state.management.outputs.sso_permission_set_arns["PlatformEngineerAccess"]
+  }
 }
 
 module "sso_assignment_dev_developers" {
@@ -41,7 +43,9 @@ module "sso_assignment_dev_developers" {
   sso_instance_arn    = data.terraform_remote_state.management.outputs.sso_instance_arn
   account_id          = aws_organizations_account.dev.id
   group_id            = data.terraform_remote_state.management.outputs.sso_group_ids["developers"]
-  permission_set_arns = [data.terraform_remote_state.management.outputs.sso_permission_set_arns["DeveloperAccess"]]
+  permission_set_arns = {
+    DeveloperAccess = data.terraform_remote_state.management.outputs.sso_permission_set_arns["DeveloperAccess"]
+  }
 }
 
 module "sso_assignment_dev_security_audit" {
@@ -49,5 +53,7 @@ module "sso_assignment_dev_security_audit" {
   sso_instance_arn    = data.terraform_remote_state.management.outputs.sso_instance_arn
   account_id          = aws_organizations_account.dev.id
   group_id            = data.terraform_remote_state.management.outputs.sso_group_ids["security-audit"]
-  permission_set_arns = [data.terraform_remote_state.management.outputs.sso_permission_set_arns["SecurityAudit"]]
+  permission_set_arns = {
+    SecurityAudit = data.terraform_remote_state.management.outputs.sso_permission_set_arns["SecurityAudit"]
+  }
 }

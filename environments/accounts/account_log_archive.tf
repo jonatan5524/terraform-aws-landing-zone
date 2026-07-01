@@ -33,5 +33,7 @@ module "sso_assignment_log_archive_security_audit" {
   sso_instance_arn    = data.terraform_remote_state.management.outputs.sso_instance_arn
   account_id          = aws_organizations_account.log_archive.id
   group_id            = data.terraform_remote_state.management.outputs.sso_group_ids["security-audit"]
-  permission_set_arns = [data.terraform_remote_state.management.outputs.sso_permission_set_arns["SecurityAudit"]]
+  permission_set_arns = {
+    SecurityAudit = data.terraform_remote_state.management.outputs.sso_permission_set_arns["SecurityAudit"]
+  }
 }

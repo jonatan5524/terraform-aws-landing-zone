@@ -1,5 +1,7 @@
 # modules/network-base/main.tf
 
+data "aws_caller_identity" "current" {}
+
 data "aws_availability_zones" "available" {
   state = "available"
 }
@@ -87,7 +89,8 @@ resource "aws_route_table_association" "private" {
 # ── IAM role for NAT instance (SSM access) ────────────────────────────────────
 
 resource "aws_iam_role" "nat_ssm" {
-  name = "${var.name_prefix}-nat-ssm-role"
+  name                 = "${var.name_prefix}-nat-ssm-role"
+  permissions_boundary = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/EC2InstanceBoundary"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -116,14 +119,12 @@ resource "aws_iam_instance_profile" "nat_ssm" {
 # ── NAT instance (public subnet) ──────────────────────────────────────────────
 
 resource "aws_eip" "nat" {
-  domain = "vpc"
+  domain   = "vpc"
+  instance = aws_instance.nat.id
+
+  depends_on = [aws_internet_gateway.this]
 
   tags = merge(var.tags, { Name = "${var.name_prefix}-nat-eip" })
-}
-
-resource "aws_eip_association" "nat" {
-  instance_id   = aws_instance.nat.id
-  allocation_id = aws_eip.nat.id
 }
 
 resource "aws_security_group" "nat" {

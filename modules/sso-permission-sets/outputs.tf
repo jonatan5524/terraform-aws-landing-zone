@@ -6,6 +6,7 @@ output "permission_set_arns" {
     {
       PlatformEngineerAccess = aws_ssoadmin_permission_set.platform_engineer.arn
       DeveloperAccess        = aws_ssoadmin_permission_set.developer.arn
+      ManagementAdminAccess  = aws_ssoadmin_permission_set.management_admin.arn
     }
   )
 }
