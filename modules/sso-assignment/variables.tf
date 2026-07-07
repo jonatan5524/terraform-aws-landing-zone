@@ -15,6 +15,6 @@ variable "group_id" {
 }
 
 variable "permission_set_arns" {
-  type        = list(string)
-  description = "List of Permission Set ARNs to assign"
+  type        = map(string)
+  description = "Map of permission set name to ARN — keys are used as stable for_each identifiers"
 }

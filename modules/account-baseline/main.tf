@@ -112,57 +112,7 @@ resource "aws_iam_role" "terraform_execution" {
   })
 }
 
-resource "aws_iam_role_policy_attachment" "terraform_execution_power_user" {
+resource "aws_iam_role_policy_attachment" "terraform_execution_admin" {
   role       = aws_iam_role.terraform_execution.name
-  policy_arn = "arn:aws:iam::aws:policy/PowerUserAccess"
-}
-
-resource "aws_iam_role_policy" "terraform_execution_iam" {
-  name = "ScopedIAMForInstanceProfiles"
-  role = aws_iam_role.terraform_execution.id
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Sid    = "IAMInstanceProfileManagement"
-        Effect = "Allow"
-        Action = [
-          "iam:CreateRole",
-          "iam:DeleteRole",
-          "iam:AttachRolePolicy",
-          "iam:DetachRolePolicy",
-          "iam:CreateInstanceProfile",
-          "iam:DeleteInstanceProfile",
-          "iam:AddRoleToInstanceProfile",
-          "iam:RemoveRoleFromInstanceProfile",
-          "iam:TagRole",
-          "iam:UntagRole",
-          "iam:PutRolePermissionsBoundary",
-        ]
-        Resource = "*"
-        Condition = {
-          StringEquals = {
-            "iam:PermissionsBoundary" = aws_iam_policy.ec2_instance_boundary.arn
-          }
-        }
-      },
-      {
-        Sid      = "IAMReadOnly"
-        Effect   = "Allow"
-        Action   = ["iam:Get*", "iam:List*"]
-        Resource = "*"
-      },
-      {
-        Sid      = "PassRoleToEC2Only"
-        Effect   = "Allow"
-        Action   = "iam:PassRole"
-        Resource = "*"
-        Condition = {
-          StringEquals = {
-            "iam:PassedToService" = "ec2.amazonaws.com"
-          }
-        }
-      }
-    ]
-  })
+  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
 }

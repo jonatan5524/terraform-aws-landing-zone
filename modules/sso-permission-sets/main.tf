@@ -9,7 +9,7 @@ locals {
     PowerUserAccess      = "arn:aws:iam::aws:policy/PowerUserAccess"
   }
 
-  groups = ["platform-engineers", "developers", "security-audit", "billing"]
+  groups = ["platform-engineers", "developers", "security-audit", "billing", "management-admins"]
 }
 
 data "aws_ssoadmin_instances" "this" {}
@@ -102,6 +102,20 @@ resource "aws_ssoadmin_permission_set_inline_policy" "platform_engineer" {
       }
     ]
   })
+}
+
+# ManagementAdminAccess — for the management account only.
+# PowerUserAccess blocks iam:* and organizations:*, both of which Terraform needs
+# in the management account to manage the org, SSO, SCPs, and state bucket.
+resource "aws_ssoadmin_permission_set" "management_admin" {
+  name         = "ManagementAdminAccess"
+  instance_arn = local.instance_arn
+}
+
+resource "aws_ssoadmin_managed_policy_attachment" "management_admin" {
+  instance_arn       = local.instance_arn
+  managed_policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
+  permission_set_arn = aws_ssoadmin_permission_set.management_admin.arn
 }
 
 # DeveloperAccess — read-only infra visibility + log tailing, no write permissions

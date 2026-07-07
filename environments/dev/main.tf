@@ -1,5 +1,7 @@
 # environments/dev/main.tf
 
+data "aws_caller_identity" "current" {}
+
 locals {
   common_tags = {
     Project     = "aws-landing-zone"
@@ -24,7 +26,8 @@ module "network" {
 # ── IAM role for SSM Session Manager (no SSH keys needed) ────────────────────
 
 resource "aws_iam_role" "k3s_ssm" {
-  name = "${var.environment_name}-k3s-ssm-role"
+  name                 = "${var.environment_name}-k3s-ssm-role"
+  permissions_boundary = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/EC2InstanceBoundary"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
